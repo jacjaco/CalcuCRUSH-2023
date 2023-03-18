@@ -1,0 +1,24 @@
+body {
+    background-color: lavender;
+    padding: 30px;
+}
+
+.sidebar {
+    background-color: black;
+    height: 100vh;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    width: 250px;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    margin-left: 300px;
+    padding: 30px;
+}
