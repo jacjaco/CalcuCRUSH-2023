@@ -1,8 +1,11 @@
-from flask import (Flask, render_template, request, flash, session,
+from flask import (Flask, render_template, request, flash, session, jsonify,
                    redirect)
 from model import connect_to_db, db
 import crud
 import sympy as sp
+from random import randint
+# from mathjax import typeset
+import os, students
 
 from jinja2 import StrictUndefined
 
@@ -20,25 +23,54 @@ def homepage():
 def dashboard():
     return render_template('dashboard.html')
 
-@app.route('/derivative_calc', methods=['GET', 'POST'])
-def derivative_calc():
-    function = request.form.get('function')
+@app.route('/derivative', methods=['GET', 'POST'])
+def u1_c1_write():
 
-    # Evaluate the function and determine if the user's answer is correct. 
     x = sp.Symbol('x')
-    f = function
-    df_dx = sp.diff(f, x)
+    terms = []
+    term_num = randint(1, 6) #select a random number of terms from 1-6
+    for i in range(term_num): # generate randome coefficient/degree pairs as tuples
+        coefficient = randint(-9, 9)
+        degree = randint(0, 9)
+        pair = (coefficient, degree)
+        terms.append(pair)
 
-    return df_dx
+    # initialize the function
+    function_terms = [] # put the tuples into an expression
+    for n in range(len(terms)):
+        function_terms.append((terms[n][0])*x**(terms[n][1]))
+    # put all the terms together in a single expression
+    f = sum(function_terms)
+    df_dx = sp.diff(f,x)
 
+    f = str(f)
+    df_dx = str(df_dx)
+
+    f = f.replace('**', '^')
+    df_dx = df_dx.replace('**', '^')
+
+    return f, df_dx #f, df_dx# fetch request, Ajax lecture. 
+
+@app.route('/u1_c1')
+def u1_c1():
+    func, deriv = u1_c1_write()
+    return render_template('u1_c1.html', func=func, deriv=deriv)
+
+@app.route("/db") # when model is changed, reboot the database by going to this route in the browser
+def db_1():
+    students.seed()
+    return "Done with db route"
 
 @app.route("/student", methods=["POST"])
 def register_user():
+
+    # assigned name of the elemment in parentheses
     email = request.form.get("email") # get the email from html and save it to a variable
     password = request.form.get("password") # get password and save it to variable
     fname = request.form.get("fname")
     lname = request.form.get("lname")
-
+    print('************************************************************==============')
+    print(email,password, lname, fname)
     user = crud.get_student_by_email(email)
     if user: # if the user exists
         flash("Cannot create an account with that email. Try again.")
@@ -53,4 +85,6 @@ def register_user():
 if __name__ == '__main__':
     # debug=True gives us error messages in the browser and also "reloads"
     # our web app if we change the code.
+    connect_to_db(app)
+    
     app.run(debug=True, host="0.0.0.0")

@@ -1,13 +1,20 @@
 # """Script to seed database."""
 
-# import os
+import os
 # import json
 # from random import choice, randint
 # from datetime import datetime
 
 # import crud
-# import model
-# import server
+import model
+import server
+
+def seed():
+    os.system("dropdb test_db")
+    os.system("createdb test_db")
+
+    model.connect_to_db(server.app)
+    model.db.create_all()
 
 # os.system("dropdb ")
 # # More code will go here
@@ -18,7 +25,7 @@
 # model.db.create_all()
 
 # with open('data/movies.json') as f:
-    movie_data = json.loads(f.read())
+    # movie_data = json.loads(f.read())
 
 # Create movies, store them in list so we can use them
 # to create fake ratings later

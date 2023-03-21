@@ -4,7 +4,7 @@ const submitButton = document.getElementById('sign-up');
 
 submitButton.addEventListener('click', (event) => {
     event.preventDefault();
-    window.location.href = '/';
+    window.location.href = '/dashboard';
 });
 
 // const button2 = document.querySelector("#prompt-2");

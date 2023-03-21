@@ -2,17 +2,27 @@
 <html>
     <head>
         <link rel="stylesheet" href="static/css/style.css">
+        <!-- mathjax to make the equations nicely formatted -->
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </head>
 
     <body>
         <h1>Unit 1 - Concept 1: First Derivatives</h1>
 
         <h2>Solve for the derivative of the following function, with respect to x:</h2>
+        
+        <!-- <button id="regenerate">Regenerate Question</button> -->
+        <!-- <p class="lead">f(x) = <span id="derivative"></span></p> -->
+        <!-- <div id="function">THIS IS IT</div> -->
+        <p>$$f(x) = {{func}}$$</p>
+        <script src="/static/js/derivative.js"></script>
         <form>
-            <p>f(x) = <input type="text" id="u1_c1" name="dervative_ex"></p>
-
-            <button id="answer" type="submit">Enter Answer</button>
+            <p>df/dx = <input type="text" id="u1_c1_answ" name="dervative_expr"></p>
+            <!-- <p>$$-8*x^7 + 9*x^5 + 6*x^4 + 3*x$$</p> -->
+            <button id="answer" type="button">Enter Answer</button>
             <button id="regenerate" type="submit">Regenerate Problem</button>
+            
         </form>
     </body>
   </html>
