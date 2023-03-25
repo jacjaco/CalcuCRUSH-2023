@@ -1,10 +1,17 @@
 <!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="static/css/style.css">
-        <!-- mathjax to make the equations nicely formatted -->
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <!--Stylesheet for all pages-->
+      <link rel="stylesheet" href="/static/css/style.css">
+      <meta charset="UTF-8">
+      <title>Unit 1-Concept 1: First Derivatives</title>
+      <!--KaTex Formatting-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+      <!--MathJax Formatting-->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
     </head>
 
     <body>
@@ -13,16 +20,44 @@
         <h2>Solve for the derivative of the following function, with respect to x:</h2>
         
         <!-- <button id="regenerate">Regenerate Question</button> -->
+         <!-- for the ajax approach -->
         <!-- <p class="lead">f(x) = <span id="derivative"></span></p> -->
-        <!-- <div id="function">THIS IS IT</div> -->
-        <p>$$f(x) = {{func}}$$</p>
-        <script src="/static/js/derivative.js"></script>
+        <!-- for the jinja approach -->
+        <div id="derivative">$$f(x)= {{f}}$$</div>
+        <input type="text" id="equationInput">
+        <div id="outputDiv"></div>
+      
+        <script>
+          const inputField = document.getElementById('equationInput');
+          const outputDiv = document.getElementById('outputDiv');
+      
+          inputField.addEventListener('input', () => {
+            const inputText = inputField.value;
+            outputDiv.textContent = inputText;
+            katex.render(inputText, outputDiv);
+          });
+        </script>
         <form>
-            <p>df/dx = <input type="text" id="u1_c1_answ" name="dervative_expr"></p>
+            <p>$$df/dx = $$<input type="text" id="user-answer"></p>
+            <p>Your formatted answer: <div id="formatted-output"></div></p>
+            <input type="text" id="equationInput">
+            <div id="outputDiv"></div>
             <!-- <p>$$-8*x^7 + 9*x^5 + 6*x^4 + 3*x$$</p> -->
             <button id="answer" type="button">Enter Answer</button>
             <button id="regenerate" type="submit">Regenerate Problem</button>
             
         </form>
+
+      <script>
+        const equationInput = document.getElementById("equationInput");
+        const equationOutput = document.getElementById("equationOutput");
+
+        equationInput.addEventListener("keyup", function() {
+          const equation = equationInput.value;
+          const equationHTML = MathJax.tex2chtml(equation).outerHTML;
+          equationOutput.innerHTML = equationHTML;
+        });
+      </script>
+
     </body>
   </html>

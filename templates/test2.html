@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>KaTeX Example</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+</head>
+<body>
+  <input type="text" id="equationInput">
+  <div id="outputDiv"></div>
+
+  <script>
+    const inputField = document.getElementById('equationInput');
+    const outputDiv = document.getElementById('outputDiv');
+
+    inputField.addEventListener('input', () => {
+      const inputText = inputField.value;
+      outputDiv.textContent = inputText;
+      katex.render(inputText, outputDiv);
+    });
+  </script>
+</body>
+</html>

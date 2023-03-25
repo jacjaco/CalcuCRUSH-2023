@@ -23,7 +23,16 @@ def homepage():
 def dashboard():
     return render_template('dashboard.html')
 
-@app.route('/derivative', methods=['GET', 'POST'])
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
+@app.route('/test2')
+def test2():
+    return render_template('test2.html')
+
+
+@app.route('/derivative')
 def u1_c1_write():
 
     x = sp.Symbol('x')
@@ -49,12 +58,13 @@ def u1_c1_write():
     f = f.replace('**', '^')
     df_dx = df_dx.replace('**', '^')
 
-    return f, df_dx #f, df_dx# fetch request, Ajax lecture. 
+    return f, df_dx #, {'data': [str(f), str(df_dx)]}#f, df_dx# fetch request, Ajax lecture. 
 
 @app.route('/u1_c1')
 def u1_c1():
-    func, deriv = u1_c1_write()
-    return render_template('u1_c1.html', func=func, deriv=deriv)
+    f, df_dx = u1_c1_write()
+    return render_template('u1_c1.html', f=f, df_dx=df_dx)#, func=func, deriv=deriv)
+
 
 @app.route("/db") # when model is changed, reboot the database by going to this route in the browser
 def db_1():
