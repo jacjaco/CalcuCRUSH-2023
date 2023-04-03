@@ -70,7 +70,7 @@ h2 {
     display: none;
 }
 
-/* Navbar */
+/* Navbar REVIEW*/
 .navbar {
     background-color: #6200ff;
     height: 60px;
@@ -106,3 +106,57 @@ h2 {
   #dashboard-navbar li a:hover {
     color: #5ac5e5;
   }
+
+  /* Sidebar REVIEW */
+
+.sidebar {
+    background-color: #FFE45E;
+    padding: 20px;
+    width: 200px;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 100px;
+}
+
+.sidebar a {
+    color: #333;
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.sidebar ul ul {
+    background-color: #00A6ED;
+    border: 1px solid #ccc;
+    margin-left: 20px;
+    padding: 10px;
+}
+
+.sidebar ul ul li {
+    margin-bottom: 5px;
+}
+
+.sidebar ul ul a {
+    font-size: 14px;
+    font-weight: normal;
+    padding: 15px;
+}
+
+.sidebar ul ul a:hover {
+    background-color: #f2f2f2;
+    color: #333;
+}

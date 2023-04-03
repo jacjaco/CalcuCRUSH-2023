@@ -27,6 +27,14 @@ def base():
 def dashboard():
     return render_template('dashboard.html')
 
+@app.route('/character_profile')
+def character_profile():
+    return render_template('character_profile.html')
+
+@app.route('/student_profile')
+def student_profile():
+    return render_template('student_profile.html')
+
 @app.route('/unit1')
 def unit1():
     return render_template('unit1.html')
