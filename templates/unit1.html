@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Unit 1</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+	<script>
+        const container = document.querySelector('.container');
+        const icon = document.querySelector('.icon');
+
+        container.addEventListener('click', (event) => {
+            icon.style.display = 'block';
+            icon.style.top = event.clientY - container.offsetTop + 'px';
+            icon.style.left = event.clientX - container.offsetLeft + 'px';
+        });
+    </script> 
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+                <ul id="dashboard-navbar">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="unit1.html">Unit 1</a></li>
+                    <li><a href="character.html">Character Profile</a></li>
+                    <li><a href="student.html">Student Profile</a></li>
+                </ul>
+        </nav>
+    </header>
+        <a href="/concept1_1">Unit 1-Concept 1</a>
+
+
+        <div id="board">
+            <div class="container">
+                Instantaneous Rates of Change
+                <span class="icon"></span>
+            </div>
+            <div class="container">
+                Estimating Derivatives with Graphs
+                <span class="icon"></span>
+            </div>
+            <div class="container">
+                Derivatives of Basic Functions
+                <span class="icon"></span>
+            </div>
+            <div class="container">
+                Product, Quotient, and Chain Rules
+                <span class="icon"></span>
+            </div>
+            <div class="container">
+                Implicit Differentiation
+                <span class="icon"></span>
+            </div>
+            <div class="container">
+                Derivatives of Inverse Functions
+                <span class="icon"></span>
+            </div>
+            <div class="container">
+                Mean Value Theorem
+                <span class="icon"></span>
+            </div>
+            <div class="container">
+                L'Hopital's Rule
+                <span class="icon"></span>
+            </div>
+            <div class="container">
+                Derivatives of Parametrically Defined Functions
+                <span class="icon"></span>
+            </div>
+            <div class="container">
+                Final Challenge
+                <span class="icon"></span>
+            </div>
+
+        </div>
+        <div id="icon" class="icon"></div>
+
+</body>
+</html>

@@ -19,9 +19,21 @@ def homepage():
     """View homepage."""
     return render_template('homepage.html')
 
+@app.route('/base')
+def base():
+    return render_template('base.html')
+
 @app.route('/dashboard')
 def dashboard():
     return render_template('dashboard.html')
+
+@app.route('/unit1')
+def unit1():
+    return render_template('unit1.html')
+
+@app.route('/concept1_1')
+def concept1_1():
+    return render_template('concept1_1.html')
 
 @app.route('/test')
 def test():
@@ -30,6 +42,7 @@ def test():
 @app.route('/test2')
 def test2():
     return render_template('test2.html')
+
 
 
 @app.route('/derivative')
@@ -60,10 +73,10 @@ def u1_c1_write():
 
     return f, df_dx #, {'data': [str(f), str(df_dx)]}#f, df_dx# fetch request, Ajax lecture. 
 
-@app.route('/u1_c1')
-def u1_c1():
+@app.route('/problem1_1_1')
+def problem1_1_1():
     f, df_dx = u1_c1_write()
-    return render_template('u1_c1.html', f=f, df_dx=df_dx)#, func=func, deriv=deriv)
+    return render_template('problem1_1_1.html', f=f, df_dx=df_dx)#, func=func, deriv=deriv)
 
 
 @app.route("/db") # when model is changed, reboot the database by going to this route in the browser

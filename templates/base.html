@@ -1,0 +1,53 @@
+<!doctype html >
+<html>
+<head>
+    <title>{% block title %}Basic Page{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            {% block navbar %}
+                <ul id="dashboard-navbar">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="unit1.html">Unit 1</a></li>
+                    <li><a href="character.html">Character Profile</a></li>
+                    <li><a href="student.html">Student Profile</a></li>
+                </ul>
+            {% endblock %}
+        </nav>
+    </header>
+
+    <aside class="sidebar">
+        {% block sidebar %}
+            <ul>
+                <li>
+                    <a href="concept1_1.html">Unit 1: Concept 1</a>
+                    <ul>
+                        <li><a href="problem1_1_1.html">Problem 1</a></li>
+                        <li><a href="unit1_concept1_problem2.html">Problem 2</a></li>
+                        <li><a href="unit1_concept1_problem3.html">Problem 3</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="unit1_concept2.html">Unit 1: Concept 2</a>
+                    <ul>
+                        <li><a href="unit1_concept2_problem1.html">Problem 1</a></li>
+                        <li><a href="unit1_concept2_problem2.html">Problem 2</a></li>
+                        <li><a href="unit1_concept2_problem3.html">Problem 3</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="unit1_concept3.html">Unit 1: Concept 3</a>
+                    <ul>
+                        <li><a href="unit1_concept3_problem1.html">Problem 1</a></li>
+                        <li><a href="unit1_concept3_problem2.html">Problem 2</a></li>
+                        <li><a href="unit1_concept3_problem3.html">Problem 3</a></li>
+                    </ul>
+                </li>
+            </ul>
+        {% endblock %}
+    </aside>
+
+
+</body>
+</html>
