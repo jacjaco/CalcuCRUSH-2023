@@ -1,19 +1,23 @@
-'use strict';
+// 'use strict';
 
-const submitButton = document.getElementById('sign-up');
+// const submitButton = document.getElementById('sign-up');
 
-submitButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    window.location.href = '/dashboard';
-});
-
-// const button2 = document.querySelector("#prompt-2");
-
-// function handleClick2(event) {
-//   alert(`${document.querySelector('#alert-text').value}`);
-//   // console.log(the_alert);
+// submitButton.addEventListener('submit', (event) => {
 //   event.preventDefault();
 
-// }
+//   // get the form and all input fields within it
+//   const form = document.getElementById('student_signup');
+//   const inputs = form.querySelectorAll('input');
 
-// button2.addEventListener('click', handleClick2);
+//   // iterate through each input field and check if it has text
+//   for (let i = 0; i < inputs.length; i++) {
+//     if (inputs[i].value.trim() === '') {
+//       alert('Please fill out all fields');
+//       return;
+//     }
+//   }
+
+//   // if all input fields have text, redirect to dashboard
+//   window.location.href = '/dashboard';
+// });
+

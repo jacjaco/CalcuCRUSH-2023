@@ -12,6 +12,12 @@
       <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
+      <style>
+        body {
+          background-image: url("/static/images/concept1_1_1.jpg");
+          background-size: cover;
+        }
+      </style>
     </head>
 
     <body>
@@ -26,17 +32,50 @@
                 </ul>
         </nav>
       </header>
+      <aside class="sidebar">
+        <ul>
+            <li>
+                <a href="/concept1_1">Unit 1: Concept 1</a>
+                <ul>
+                    <li><a href="/problem1_1_1">Problem 1</a></li>
+                    <li><a href="/problem1_1_2">Problem 2</a></li>
+                    <li><a href="/problem1_1_3">Problem 3</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="/concept1_2">Unit 1: Concept 2</a>
+                <ul>
+                    <li><a href="unit1_concept2_problem1.html">Problem 1</a></li>
+                    <li><a href="unit1_concept2_problem2.html">Problem 2</a></li>
+                    <li><a href="unit1_concept2_problem3.html">Problem 3</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="unit1_concept3.html">Unit 1: Concept 3</a>
+                <ul>
+                    <li><a href="unit1_concept3_problem1.html">Problem 1</a></li>
+                    <li><a href="unit1_concept3_problem2.html">Problem 2</a></li>
+                    <li><a href="unit1_concept3_problem3.html">Problem 3</a></li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- <div class="container"> -->
+      <div class="middle-column">
+
         <h1>Unit 1 - Concept 1: First Derivatives</h1>
 
         <h2>Solve for the derivative of the following function, with respect to x:</h2>
-        
-        <!-- <button id="regenerate">Regenerate Question</button> -->
-         <!-- for the ajax approach -->
-        <!-- <p class="lead">f(x) = <span id="derivative"></span></p> -->
-        <!-- for the jinja approach -->
+      
+
         <div id="derivative">$$f(x)= {{f}}$$</div>
-        <input type="text" id="equationInput">
+        <label style="display: inline-block; font-size: 30px;" for="equationInput">$$df/dx = $$</label>
+        <input type="text" style="width: 300px; height: 50px; font-size: 30px;" id="equationInput">
+
         <div id="outputDiv"></div>
+
+        <div>CORRECT Answer: {{df_dx}}</div>
       
         <script>
           const inputField = document.getElementById('equationInput');
@@ -48,18 +87,44 @@
             katex.render(inputText, outputDiv);
           });
         </script>
-        <form>
-            <p>$$df/dx = $$<input type="text" id="user-answer"></p>
-            <p>Your formatted answer: <div id="formatted-output"></div></p>
-            <input type="text" id="equationInput">
-            <div id="outputDiv"></div>
-            <!-- <p>$$-8*x^7 + 9*x^5 + 6*x^4 + 3*x$$</p> -->
-            <button id="answer" type="button">Enter Answer</button>
-            <button id="regenerate" type="submit">Regenerate Problem</button>
-            
-        </form>
 
-      <script>
+        <div>
+          <button id="answer" type="button">Submit Answer</button>
+          <button id="regenerate" type="submit">Restart</button>
+        </div>
+
+        <div id="messageContainer"></div>
+
+        <!-- Submit Answer Javascript -->
+        <script>
+          const submitButton = document.querySelector("#answer");
+          submitButton.addEventListener("click", () => {
+            const userInput = document.querySelector("#equationInput").value
+            fetch("/concept111_check", {
+              method: "POST",
+              body: JSON.stringify({ answer: userInput }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.correct) {
+                pointCounter.innerHTML = parseInt(pointCounter.innerHTML) + 1;
+                messageContainer.textContent = "YOU GOT IT!";
+              } else {
+                messageContainer.textContent = "Not yet, try again!";
+              }
+            });
+          }); 
+        </script>
+      </div>  
+    <!-- </div>    -->
+    </body>
+  </html>
+
+
+        <!-- <script>
         const equationInput = document.getElementById("equationInput");
         const equationOutput = document.getElementById("equationOutput");
 
@@ -68,7 +133,4 @@
           const equationHTML = MathJax.tex2chtml(equation).outerHTML;
           equationOutput.innerHTML = equationHTML;
         });
-      </script>
-
-    </body>
-  </html>
+      </script> -->
