@@ -84,6 +84,9 @@ def u1_c1_write():
     f = f.replace('**', '^')
     df_dx = df_dx.replace('**', '^')
 
+    f = f.replace(" ", "")
+    df_dx = df_dx.replace(" ", "")
+
     return f, df_dx #, {'data': [str(f), str(df_dx)]}#f, df_dx# fetch request, Ajax lecture. 
 
 @app.route('/problem1_1_1')
@@ -91,18 +94,18 @@ def problem1_1_1():
     f, df_dx = u1_c1_write()
     return render_template('problem1_1_1.html', f=f, df_dx=df_dx)#, func=func, deriv=deriv)
 
-@app.route('/concept111_check', methods=['POST'])
-def concept111_check():
+@app.route('/problem111_check', methods=['POST'])
+def problem111_check():
     user_input = request.json["answer"]
 
-    ignore, correct_answer = u1_c1_write()
+    problem, correct_answer = u1_c1_write()
 
-    if str(user_input) == str(correct_answer):
-        return jsonify({"correct": True}) # increment point
+    result = str(user_input) == str(correct_answer)
+    if result:
+        return jsonify({"correct": True }) #, "user_input": user_input, "correct_answer": correct_answer, "result": "correct"})
     else:
-        return jsonify({"correct": False})  # error message. 
-    
-    
+        return jsonify({"correct": False }) #, "user_input": user_input, "correct_answer": correct_answer, "result": "incorrect"})
+
 
 @app.route("/db") # when model is changed, reboot the database by going to this route in the browser
 def db_1():

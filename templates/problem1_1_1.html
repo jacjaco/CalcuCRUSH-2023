@@ -11,7 +11,8 @@
       <!--MathJax Formatting-->
       <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-
+      <!-- Confetti! -->
+      <script src="confetti.js"></script>
       <style>
         body {
           background-image: url("/static/images/concept1_1_1.jpg");
@@ -70,13 +71,30 @@
       
 
         <div id="derivative">$$f(x)= {{f}}$$</div>
-        <label style="display: inline-block; font-size: 30px;" for="equationInput">$$df/dx = $$</label>
-        <input type="text" style="width: 300px; height: 50px; font-size: 30px;" id="equationInput">
+        <form>
+          <label style="display: inline-block; font-size: 30px;" for="equationInput">$$df/dx = $$</label>
+          <input type="text" style="width: 300px; height: 50px; font-size: 30px;" id="equationInput" name="equationInput">
+          <button type="button" onclick="checkAnswer()">Submit Answer</button>
+        </form>
+        <p id="result"></p>
 
+        <label for="outputDiv">Formatted Answer:</label>
         <div id="outputDiv"></div>
 
-        <div>CORRECT Answer: {{df_dx}}</div>
+        <!-- <div>CORRECT Answer: {{df_dx}}</div> -->
+
+        <!-- Create point and problem completion counters on the side: -->
+        <div class="point-bubble">
+          <label for="points">Planet Points</label>
+          <span id="points" class="counter">0</span>
+        </div>
+
+        <div class="problem-bubble">
+          <label for="problem-progress">Planet Points</label>
+          <span id="problem-progress" class="counter">0</span>
+        </div>
       
+        <!-- Apply Formatting to equation-->
         <script>
           const inputField = document.getElementById('equationInput');
           const outputDiv = document.getElementById('outputDiv');
@@ -88,49 +106,61 @@
           });
         </script>
 
+        <!-- Restart Problem -->
         <div>
           <button id="answer" type="button">Submit Answer</button>
-          <button id="regenerate" type="submit">Restart</button>
+          <button id="regenerate" type="submit" onclick="restart()">Restart</button>
+          <script>
+            function restart() {
+              window.location.reload();
+            }
+          </script>
         </div>
 
         <div id="messageContainer"></div>
-
-        <!-- Submit Answer Javascript -->
+        
+        <!-- Update point and problem counters -->
         <script>
-          const submitButton = document.querySelector("#answer");
-          submitButton.addEventListener("click", () => {
-            const userInput = document.querySelector("#equationInput").value
-            fetch("/concept111_check", {
-              method: "POST",
-              body: JSON.stringify({ answer: userInput }),
-              headers: {
-                "Content-Type": "application/json",
-              },
-            })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.correct) {
-                pointCounter.innerHTML = parseInt(pointCounter.innerHTML) + 1;
-                messageContainer.textContent = "YOU GOT IT!";
-              } else {
-                messageContainer.textContent = "Not yet, try again!";
-              }
-            });
-          }); 
+          var planet_points = 0;
+          var problem_progress = 0;
+
+          function addPoints() {
+            planet_points++;
+            document.querySelector('.bubble-a .counter').textContent = planet_points;
+          }
+
+          function addProblemProgress() {
+            problem_progress++;
+            document.querySelector('.bubble-b .counter').textContent = problem_progress;
+          }
+
+          function subtractProblemProgress() {
+            counterB++;
+            document.querySelector('.bubble-b .counter').textContent = counterB;
+          }
+
+          // Example usage
+          updateCounterA();
+          updateCounterB();
+
+        </script>
+        <!-- Submit and Check Answer Javascript -->
+        <script>
+          function checkAnswer() {
+            const userInput = document.getElementById("equationInput").value;
+            const df_dx = "{{ df_dx }}"; 
+            const resultElement = document.getElementById("result");
+            
+            if (userInput === df_dx) {
+              resultElement.innerText = "Congratulations! Your answer is correct.";
+              startConfetti();
+              confetti.maxCount = 20;
+            } else {
+              resultElement.innerText = "Not right yet. Please try again!";
+            }
+          }
         </script>
       </div>  
     <!-- </div>    -->
     </body>
   </html>
-
-
-        <!-- <script>
-        const equationInput = document.getElementById("equationInput");
-        const equationOutput = document.getElementById("equationOutput");
-
-        equationInput.addEventListener("keyup", function() {
-          const equation = equationInput.value;
-          const equationHTML = MathJax.tex2chtml(equation).outerHTML;
-          equationOutput.innerHTML = equationHTML;
-        });
-      </script> -->

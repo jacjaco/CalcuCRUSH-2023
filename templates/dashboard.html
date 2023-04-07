@@ -3,6 +3,16 @@
     <head>
         <title>Dashboard</title>
         <link rel="stylesheet" href="/static/css/style.css">
+        <script src="https://www.google.com/jsapi?key=AIzaSyDRUykAT_Y2EYH1UHTuILVQRMf0z3Zg9vc"></script>
+        <script src="https://apis.google.com/js/api.js"></script>
+
+        <style>
+            #earth-map {
+            width: 800px;
+            height: 600px;
+            }
+        </style>
+    
     </head>
 
     <body>
@@ -17,9 +27,41 @@
                     </ul>
             </nav>
         </header>
-
-
+        
         <h1>Dashboard</h1>
+
+
+        <div id="earth-map"></div>
+        <script src="https://cdn.jsdelivr.net/npm/ee-dask-remote/dist/ee-dask-remote.min.js"></script>
+
+
+        <script>
+            ee.initialize({
+                apiKey: 'AIzaSyDRUykAT_Y2EYH1UHTuILVQRMf0z3Zg9vc',
+                // Optional - set the number of concurrent tasks for the client
+                // to avoid reaching resource limits on the server
+                concurrentTaskLimit: 8
+                });
+
+            // Create a new map object
+            var map = new ee.Map({
+            // Set the default map center and zoom level
+            center: [0, 0],
+            zoom: 3
+            });
+
+            // Add the map to the div element in your HTML page
+            map.addTo('map');
+
+            // Load and display a Landsat image
+            var landsatImage = ee.Image('LANDSAT/LC08/C01/T1_SR/LC08_044034_20140318');
+            map.addLayer(landsatImage, {}, 'Landsat 8 image');
+
+            // Add a marker at a specific location
+            var marker = ee.Geometry.Point([-122.4184, 37.7758]);
+            map.addLayer(marker, {color: 'red'}, 'Marker');
+
+        </script>
 
 
     </body>

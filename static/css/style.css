@@ -54,7 +54,7 @@ button {
     font-size: 18px;
     border: 2px solid #FFE45E;
     box-shadow: 5px 5px 5px grey;
-    /* position: absolute; */
+    margin-top: 100px;
     bottom: 100px;
   }
 
@@ -219,3 +219,65 @@ button {
   .hex-inner p {
     margin: 0;
   }
+
+  /* Review BUBBLES */
+
+  .point-bubble {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: #00a6ed;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    line-height: 60px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .problem-bubble {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: #C0AAEB;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    line-height: 60px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .bubble:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .point-bubble {
+    right: 300px;
+    top: 300px
+  }
+  
+  .problem-bubble {
+    right: 300px;
+  }
+  
+  .counter {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 28px;
+  }
+  
+  /* .label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  } */
