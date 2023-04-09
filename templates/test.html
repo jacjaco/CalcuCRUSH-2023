@@ -1,63 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>My Google Earth Dashboard</title>
-    <style>
-      #map-container {
-        height: 500px;
-        width: 100%;
-      }
-    </style>
-    <script src="https://www.google.com/jsapi"></script>
-    <script>
-      google.load('earth', '1', {
-        'other_params': 'sensor=false'
-      });
-      
-      function init() {
-        var mapContainer = document.getElementById('map-container');
-        var mapOptions = {
-          'database': 'http://www.earthpoint.us/ZipCodes.aspx',
-          'callback': function(map) {
-            // Create a placemark for New York City
-            var newYork = map.createPlacemark('');
-            newYork.setName('New York City');
-            var newYorkPoint = map.createPoint('');
-            newYorkPoint.setLatitude(40.71427);
-            newYorkPoint.setLongitude(-74.00597);
-            newYork.setGeometry(newYorkPoint);
-            
-            // Add a link to a page in your website when the placemark is clicked
-            google.earth.addEventListener(newYork, 'click', function() {
-              window.location.href = 'https://www.yourwebsite.com/new-york';
-            });
-            
-            // Create a placemark for Los Angeles
-            var losAngeles = map.createPlacemark('');
-            losAngeles.setName('Los Angeles');
-            var losAngelesPoint = map.createPoint('');
-            losAngelesPoint.setLatitude(34.05223);
-            losAngelesPoint.setLongitude(-118.24368);
-            losAngeles.setGeometry(losAngelesPoint);
-            
-            // Add a link to a page in your website when the placemark is clicked
-            google.earth.addEventListener(losAngeles, 'click', function() {
-              window.location.href = 'https://www.yourwebsite.com/los-angeles';
-            });
-            
-            // Add the placemarks to the map
-            map.getFeatures().appendChild(newYork);
-            map.getFeatures().appendChild(losAngeles);
-          }
-        };
-        var map = new google.earth.GEMap(mapContainer, mapOptions);
-      }
-      
-      google.setOnLoadCallback(init);
-    </script>
-  </head>
+<head>
+  <script src="//unpkg.com/three-globe"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOJvvMOn3P2XteMA_nui6JTNYXVBHGfic"></script>
+  
+
+</head>
   <body>
-    <div id="map-container"></div>
+    <h1>3d globe</h1>
+    <div id="map" style="height: 900px; width:100%;"></div>
+
+    <script>
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 0, lng: 0},
+        zoom: 2,
+        mapTypeId: 'satellite'
+      });
+
+      function GlobeOverlay() {
+        this._div = null;
+      }
+
+      GlobeOverlay.prototype = new google.maps.OverlayView();
+
+      GlobeOverlay.prototype.onAdd = function() {
+        this._div = document.createElement('div');
+        this._div.style.position = 'absolute';
+        this._div.innerHTML = '<img src="globe_texture.jpg">';
+        this.getPanes().overlayLayer.appendChild(this._div);
+      };
+
+      GlobeOverlay.prototype.draw = function() {
+        var projection = this.getProjection();
+        var divCenter = projection.fromLatLngToDivPixel(new google.maps.LatLng(0, 0));
+        this._div.style.left = divCenter.x - 256 + 'px';
+        this._div.style.top = divCenter.y - 256 + 'px';
+        this._div.style.width = '512px';
+        this._div.style.height = '512px';
+      };
+
+      GlobeOverlay.prototype.onRemove = function() {
+        this._div.parentNode.removeChild(this._div);
+        this._div = null;
+      };
+
+      var globeOverlay = new GlobeOverlay();
+      globeOverlay.setMap(map);
+
+    </script>
   </body>
 </html>

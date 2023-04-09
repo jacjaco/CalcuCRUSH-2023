@@ -5,6 +5,9 @@
         <link rel="stylesheet" href="/static/css/style.css">
         <script src="https://www.google.com/jsapi?key=AIzaSyDRUykAT_Y2EYH1UHTuILVQRMf0z3Zg9vc"></script>
         <script src="https://apis.google.com/js/api.js"></script>
+        <script src="//unpkg.com/three-globe"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOJvvMOn3P2XteMA_nui6JTNYXVBHGfic"></script>
+        
 
         <style>
             #earth-map {
@@ -29,40 +32,47 @@
         </header>
         
         <h1>Dashboard</h1>
-
-
-        <div id="earth-map"></div>
-        <script src="https://cdn.jsdelivr.net/npm/ee-dask-remote/dist/ee-dask-remote.min.js"></script>
-
+        
+        <div id="map" style="height: 900px; width:100%;"></div>
 
         <script>
-            ee.initialize({
-                apiKey: 'AIzaSyDRUykAT_Y2EYH1UHTuILVQRMf0z3Zg9vc',
-                // Optional - set the number of concurrent tasks for the client
-                // to avoid reaching resource limits on the server
-                concurrentTaskLimit: 8
-                });
-
-            // Create a new map object
-            var map = new ee.Map({
-            // Set the default map center and zoom level
-            center: [0, 0],
-            zoom: 3
-            });
-
-            // Add the map to the div element in your HTML page
-            map.addTo('map');
-
-            // Load and display a Landsat image
-            var landsatImage = ee.Image('LANDSAT/LC08/C01/T1_SR/LC08_044034_20140318');
-            map.addLayer(landsatImage, {}, 'Landsat 8 image');
-
-            // Add a marker at a specific location
-            var marker = ee.Geometry.Point([-122.4184, 37.7758]);
-            map.addLayer(marker, {color: 'red'}, 'Marker');
-
+          var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 0, lng: 0},
+            zoom: 2,
+            mapTypeId: 'satellite'
+          });
+    
+          function GlobeOverlay() {
+            this._div = null;
+          }
+    
+          GlobeOverlay.prototype = new google.maps.OverlayView();
+    
+          GlobeOverlay.prototype.onAdd = function() {
+            this._div = document.createElement('div');
+            this._div.style.position = 'absolute';
+            this._div.innerHTML = '<img src="globe_texture.jpg">';
+            this.getPanes().overlayLayer.appendChild(this._div);
+          };
+    
+          GlobeOverlay.prototype.draw = function() {
+            var projection = this.getProjection();
+            var divCenter = projection.fromLatLngToDivPixel(new google.maps.LatLng(0, 0));
+            this._div.style.left = divCenter.x - 256 + 'px';
+            this._div.style.top = divCenter.y - 256 + 'px';
+            this._div.style.width = '512px';
+            this._div.style.height = '512px';
+          };
+    
+          GlobeOverlay.prototype.onRemove = function() {
+            this._div.parentNode.removeChild(this._div);
+            this._div = null;
+          };
+    
+          var globeOverlay = new GlobeOverlay();
+          globeOverlay.setMap(map);
+    
         </script>
-
 
     </body>
   </html>
