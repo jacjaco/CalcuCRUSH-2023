@@ -28,10 +28,15 @@ def create_database():
 def base():
     return render_template('base.html')
 
-@app.route('/dashboard')
-def new_dashboard():
+@app.route('/terms')
+def user_terms():
+    return render_template('terms.html')
+
+@app.route('/dashboard', methods=['POST'])
+def dashboard():
     return render_template('dashboard.html')
 
+    
 @app.route('/character_profile')
 def character_profile():
     return render_template('character_profile.html')
@@ -174,7 +179,7 @@ def login():
                 db.session.add(new_student)
                 db.session.commit()
                 session['email'] = email
-                return redirect('dashboard')
+                return redirect('/terms')
 
         elif request.form['action'] == 'login':
             email = request.form['email']
@@ -182,7 +187,7 @@ def login():
             student = Student.query.filter_by(email=email).first()
             if student is not None and student.password == password:
                 session['email'] = email
-                return redirect('/dashboard')
+                return redirect('/terms')
             else:
                 error = 'Invalid username or password'
                 return render_template('homepage.html', error=error)

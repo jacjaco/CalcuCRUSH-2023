@@ -139,6 +139,26 @@ button {
   bottom: 10px;
 }
 
+/* Terms */
+
+#terms {
+  font-size: 40px;
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+}
+
+#checkbox {
+  width: 30px;
+  height: 30px;
+}
+
+
+#terms {
+    border: 1px solid yellow;
+    padding: 20px;
+}
+
 /* Navbar REVIEW*/
 .navbar {
     background-color: #6200ff;
