@@ -76,22 +76,24 @@
           <input type="text" style="width: 300px; height: 50px; font-size: 30px;" id="equationInput" name="equationInput">
           <button type="button" onclick="checkAnswer()">Submit Answer</button>
         </form>
-        <p id="result"></p>
 
-        <label for="outputDiv">Formatted Answer:</label>
-        <div id="outputDiv"></div>
+
+        <label for="outputDiv"style="font-size: 30px;">Formatted Answer:</label>
+        <div id="outputDiv"style="font-size: 30px;"></div>
+
+        <p id="result"style="font-size: 50px;"></p>
 
         <!-- <div>CORRECT Answer: {{df_dx}}</div> -->
 
         <!-- Create point and problem completion counters on the side: -->
         <div class="point-bubble">
           <label for="points">Planet Points</label>
-          <span id="points" class="counter">0</span>
+          <span id="points" class="counter">{{ problem_points }}</span>
         </div>
 
         <div class="problem-bubble">
-          <label for="problem-progress">Planet Points</label>
-          <span id="problem-progress" class="counter">0</span>
+          <label for="problem-progress">Concept Completion</label>
+          <span id="problem-progress" class="counter">{{ problem_points }}</span>
         </div>
       
         <!-- Apply Formatting to equation-->
@@ -109,7 +111,7 @@
         <!-- Restart Problem -->
         <div>
           <button id="answer" type="button">Submit Answer</button>
-          <button id="regenerate" type="submit" onclick="restart()">Restart</button>
+          <button id="regenerate" type="submit" onclick="restart()">Next Problem</button>
           <script>
             function restart() {
               window.location.reload();
@@ -119,31 +121,6 @@
 
         <div id="messageContainer"></div>
         
-        <!-- Update point and problem counters -->
-        <script>
-          var planet_points = 0;
-          var problem_progress = 0;
-
-          function addPoints() {
-            planet_points++;
-            document.querySelector('.bubble-a .counter').textContent = planet_points;
-          }
-
-          function addProblemProgress() {
-            problem_progress++;
-            document.querySelector('.bubble-b .counter').textContent = problem_progress;
-          }
-
-          function subtractProblemProgress() {
-            counterB++;
-            document.querySelector('.bubble-b .counter').textContent = counterB;
-          }
-
-          // Example usage
-          updateCounterA();
-          updateCounterB();
-
-        </script>
         <!-- Submit and Check Answer Javascript -->
         <script>
           function checkAnswer() {
@@ -155,10 +132,41 @@
               resultElement.innerText = "Congratulations! Your answer is correct.";
               startConfetti();
               confetti.maxCount = 20;
+              addPoints();
             } else {
-              resultElement.innerText = "Not right yet. Please try again!";
+              resultElement.innerText = "Not yet. Please try again!";
             }
           }
+        </script>
+
+                <!-- Update point and problem counters -->
+        <script>
+          function addPoints() {
+            let planet_points = parseInt("{{ planet_points }}");
+            let problem_points = parseInt("{{ problem_points }}");
+
+            planet_points += 5;
+            problem_points += 1;
+
+            fetch('/planet_points', {
+              method: 'POST',
+              body: JSON.stringify({planet_points: planet_points, problem_points: problem_points}), 
+              headers:{
+                'Content-Type': 'application/json'
+              }
+            }).then(response => {
+              document.getElementById('planet_points').innerText = planet_points;
+              document.getElementById('problem_points').innerText = problem_points;
+            }).catch(error => console.error(error));
+
+          }
+
+        </script>
+
+
+        <!-- Update point and problem counters -->
+        <script>
+    
         </script>
       </div>  
     <!-- </div>    -->

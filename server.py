@@ -107,6 +107,24 @@ def problem111_check():
         return jsonify({"correct": False }) #, "user_input": user_input, "correct_answer": correct_answer, "result": "incorrect"})
 
 
+# @app.route('/planet_points', methods=['POST'])
+# def update_points():
+#     updated_points = request.json
+
+#     # get the student_id associated with the current user's email from the database
+#     email = session['email']
+#     cursor = conn.cursor()
+#     cursor.execute('SELECT student_id FROM students WHERE email = %s', (email,))
+#     result = cursor.fetchone()
+#     student_id = result[0]
+
+#     # update the relevant info in the database for the student_id
+#     cursor.execute('UPDATE students SET name = %s, age = %s, major = %s WHERE student_id = %s', 
+#                    (updated_points['name'], updated_points['age'], updated_points['major'], student_id))
+#     conn.commit()
+
+#     return 'Info updated successfully'
+
 @app.route("/db") # when model is changed, reboot the database by going to this route in the browser
 def db_1():
     students.seed()
@@ -143,21 +161,27 @@ def db_1():
 def login():
     if request.method == 'POST':
         if request.form['action'] == 'signin':
-            # Check if the user is trying to sign in
+            fname = request.form['fname']
+            lname = request.form['lname']
             email = request.form['email']
             password = request.form['password']
-            student = Student.query.filter_by(email=email, password=password).first()
-            if student is not None:
-                return redirect('/dashboard')
-            else:
-                error = 'Invalid username or password'
+            student = Student.query.filter_by(email=email).first()
+            if student is not None: # If the student email already exists
+                error = "An account has already been made with this email. Try logging in. "
                 return render_template('homepage.html', error=error)
+            else: # Create a new student
+                new_student = Student(fname=fname, lname=lname, email=email, password=password)
+                db.session.add(new_student)
+                db.session.commit()
+                session['email'] = email
+                return redirect('dashboard')
+
         elif request.form['action'] == 'login':
-            # Check if the user is trying to log in
             email = request.form['email']
             password = request.form['password']
             student = Student.query.filter_by(email=email).first()
             if student is not None and student.password == password:
+                session['email'] = email
                 return redirect('/dashboard')
             else:
                 error = 'Invalid username or password'

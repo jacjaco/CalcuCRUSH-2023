@@ -15,7 +15,6 @@
         <!-- <a href="/dashboard">Dashboard</a> -->
         <img src="/static/images/Calcucrush.png" alt="Image Description" style="display:block; margin:auto;">
 
-
         <!-- <h2>Sign Up</h2>
         <form id="student_signup" action="/student" method="POST">
 
@@ -54,27 +53,35 @@
         </form> -->
 
 
-        <h2>Sign In</h2>
-            <form method="post" action="{{ url_for('login') }}">
-            <label>Email</label>
-            <input type="text" name="email" required>
-            <br>
-            <label>Password</label>
-            <input type="password" name="password" required>
-            <br>
-            <input type="submit" name="action" value="signin">
+        <h2 style="font-size: 25px; color: white;">Sign In</h2>
+            <form method="post" id='sign-in' action='signin'>
+                <label>First Name</label>
+                <input type="text" id="fname" name="fname" required>
+                <br>
+                <label>Last Name</label>
+                <input type="text" id="lname" name="lname" required>
+                <br>
+                <label>Email</label>
+                <input type="text" id="email" name="email" required>
+                <br>
+                <label>Password</label>
+                <input type="password" id="password" name="password" required>
+                <br>
+                <input type="submit" id="home-button" name="action" value="signin">
             </form>
             <br>
-        <h2>Log In</h2>
-            <form method="post" action="{{ url_for('login') }}">
-            <label>Email</label>
-            <input type="text" name="email" required>
-            <br>
-            <label>Password</label>
-            <input type="password" name="password" required>
-            <br>
-            <input type="submit" name="action" value="login">
+        <h2 style="font-size: 25px; color: white;">Log In</h2>
+            <form method="post" id='log-in' action='login'>
+                <label>Email</label>
+                <input type="text" name="email" required>
+                <br>
+                <label>Password</label>
+                <input type="password" name="password" required>
+                <br>
+                <input type="submit" id="home-button" name="action" value="login">
             </form>
+
+        <div class="containerH">
 
     </body>
   </html>
