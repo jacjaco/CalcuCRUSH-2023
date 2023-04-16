@@ -74,5 +74,44 @@
     
         </script>
 
+        <script>
+            var map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 0, lng: 0 },
+            zoom: 2,
+            mapTypeId: 'roadmap'
+          });
+
+          var service = new google.maps.places.PlacesService(map);
+
+          service.textSearch({ query: 'country_name' }, function(results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+              for (var i = 0; i < results.length; i++) {
+                var place = results[i];
+                var marker = new google.maps.Marker({
+                  map: map,
+                  position: place.geometry.location,
+                  title: place.name
+                });
+              }
+            }
+          });
+        </script>
+
+        <script>
+          var cities = [  { name: 'New York', lat: 40.7128, lng: -74.0060, link: 'https://www.example.com/newyork' },  { name: 'Los Angeles', lat: 34.0522, lng: -118.2437, link: 'https://www.example.com/losangeles' },  { name: 'London', lat: 51.5074, lng: -0.1278, link: 'https://www.example.com/london' }];
+
+          for (var i = 0; i < cities.length; i++) {
+            var marker = new google.maps.Marker({
+              position: { lat: cities[i].lat, lng: cities[i].lng },
+              map: map,
+              title: cities[i].name
+            });
+            
+            marker.addListener('click', function() {
+              window.open(cities[i].link, '_blank');
+            });
+          }
+        </script>
+
     </body>
   </html>

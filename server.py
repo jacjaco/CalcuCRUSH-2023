@@ -32,9 +32,10 @@ def base():
 def user_terms():
     return render_template('terms.html')
 
-@app.route('/dashboard', methods=['POST'])
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     return render_template('dashboard.html')
+
 
     
 @app.route('/character_profile')
@@ -43,7 +44,9 @@ def character_profile():
 
 @app.route('/student_profile')
 def student_profile():
-    return render_template('student_profile.html')
+    email = session.get('email')
+    student = Student.query.filter_by(email=email).first()
+    return render_template('student_profile.html', student=student)
 
 @app.route('/unit1')
 def unit1():
@@ -61,6 +64,9 @@ def test():
 def test2():
     return render_template('test2.html')
 
+@app.route('/test3')
+def test3():
+    return render_template('test3.html')
 
 
 @app.route('/derivative')
@@ -111,7 +117,9 @@ def problem111_check():
     else:
         return jsonify({"correct": False }) #, "user_input": user_input, "correct_answer": correct_answer, "result": "incorrect"})
 
-
+@app.route('/problem1_1_2')
+def problem1_1_2():
+    return render_template('problem1_1_2.html')#, func=func, deriv=deriv)
 # @app.route('/planet_points', methods=['POST'])
 # def update_points():
 #     updated_points = request.json
