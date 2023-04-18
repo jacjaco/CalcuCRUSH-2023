@@ -4,7 +4,7 @@
       <!--Stylesheet for all pages-->
       <link rel="stylesheet" href="/static/css/style.css">
       <meta charset="UTF-8">
-      <title>Unit 1-Concept 1:  Derivatives</title>
+      <title>Unit 1-Concept 1: First Derivatives</title>
       <!--KaTex Formatting-->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
@@ -65,12 +65,12 @@
     <!-- <div class="container"> -->
       <div class="middle-column">
 
-        <h1>Unit 1 - Concept 1.2: Product Rule</h1>
+        <h1>Unit 1 - Concept 1.3: The Quotient Rule</h1>
 
         <h2>Solve for the derivative of the following function, with respect to x:</h2>
       
 
-        <div id="product_deriv">$$f(x)= {{f}}$$</div>
+        <div id="derivative">$$f(x)= {{f}}$$</div>
         <form>
           <label style="display: inline-block; font-size: 30px;" for="equationInput">$$df/dx = $$</label>
           <input type="text" style="width: 300px; height: 50px; font-size: 30px;" id="equationInput" name="equationInput">
@@ -149,7 +149,7 @@
                   progress: progressPoints.innerText
                 })
               });
-              fetch('/update-progress-2', {
+              fetch('/update-progress', {
                 method: 'POST',
                 body: new URLSearchParams({
                   email: '{{ student.email }}',

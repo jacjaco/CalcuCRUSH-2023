@@ -67,6 +67,7 @@ def update_points():
     email = request.form['email']
     points = int(request.form['points'])
     student = Student.query.filter_by(email=email).first()
+
     if student:
         student.planet_points = points
         db.session.commit()
@@ -124,7 +125,9 @@ def problem1_1_1():
     f, df_dx = u1_c1_write()
     email = session.get('email')
     student = Student.query.filter_by(email=email).first()
-    return render_template('problem1_1_1.html', f=f, df_dx=df_dx, student=student) #, planet_points=students.planet_points)
+    new_progress = ProblemProgress(id=1, problems_done="", completion=False, points_gained=0)
+    progress = ProblemProgress.query.filter_by(id=1).first()
+    return render_template('problem1_1_1.html', f=f, df_dx=df_dx, student=student, new_progress=new_progress, progress=progress) #, planet_points=students.planet_points)
 
 @app.route('/problem111_check', methods=['POST'])
 def problem111_check():
@@ -135,20 +138,63 @@ def problem111_check():
     result = str(user_input) == str(correct_answer)
     if result:
         email = session.get('email')
-        # student = Student.query.filter_by(email=email).first()
-        # student.planet_points += 1
-        # db.session.commit()
-
         return jsonify({"correct": True }), render_template('problem1_1_1.html', planet_points=student.planet_points) #, "user_input": user_input, "correct_answer": correct_answer, "result": "correct"})
 
     else:
         return jsonify({"correct": False }) #, "user_input": user_input, "correct_answer": correct_answer, "result": "incorrect"})
 
+@app.route('/product_deriv')
+def u1_c1_p2_write():
 
+    x = sp.Symbol('x')
+    terms = []
+    term_num = randint(1, 6) #select a random number of terms from 1-6
+    for i in range(term_num): # generate randome coefficient/degree pairs as tuples
+        coefficient = randint(-9, 9)
+        degree = randint(0, 9)
+        pair = (coefficient, degree)
+        terms.append(pair)
+
+    # initialize the function
+    function_terms = [] # put the tuples into an expression
+    for n in range(len(terms)):
+        function_terms.append((terms[n][0])*x**(terms[n][1]))
+    # put all the terms together in a single expression
+    f = sum(function_terms)
+    df_dx = sp.diff(f,x)
+
+    f = str(f)
+    df_dx = str(df_dx)
+
+    f = f.replace('**', '^')
+    df_dx = df_dx.replace('**', '^')
+
+    f = f.replace(" ", "")
+    df_dx = df_dx.replace(" ", "")
+
+    return f, df_dx #, {'data': [str(f), str(df_dx)]}#f, df_dx# fetch request, Ajax lecture. 
 
 @app.route('/problem1_1_2')
 def problem1_1_2():
-    return render_template('problem1_1_2.html')#, func=func, deriv=deriv)
+    f, df_dx = u1_c1_p2_write()
+    email = session.get('email')
+    student = Student.query.filter_by(email=email).first()
+    new_progress = ProblemProgress(id=2, problems_done="", completion=False, points_gained=0)
+    progress = ProblemProgress.query.filter_by(id=2).first()
+    return render_template('problem1_1_2.html', f=f, df_dx=df_dx, student=student, new_progress=new_progress, progress=progress) #, planet_points=students.planet_points)
+
+@app.route('/problem112_check', methods=['POST'])
+def problem112_check():
+    user_input = request.json["answer"]
+
+    problem, correct_answer = u1_c1_p2_write()
+
+    result = str(user_input) == str(correct_answer)
+    if result:
+        email = session.get('email')
+        return jsonify({"correct": True }), render_template('problem1_1_2.html', planet_points=student.planet_points) #, "user_input": user_input, "correct_answer": correct_answer, "result": "correct"})
+    else:
+        return jsonify({"correct": False }) #, "user_input": user_input, "correct_answer": correct_answer, "result": "incorrect"})
 
 
 @app.route("/db") # when model is changed, reboot the database by going to this route in the browser

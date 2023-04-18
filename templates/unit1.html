@@ -14,6 +14,25 @@
             icon.style.left = event.clientX - container.offsetLeft + 'px';
         });
     </script> 
+    <!--KaTex Formatting-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+    <!-- mathjax formatting -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    <style>
+        body {
+            background-image: url("/static/images/unit1_himalayas.jpg");
+            background-size: cover;
+        }
+        .box-highlight {
+            border: 10px solid #5D2A42;
+        }
+        .paragraph {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -56,51 +75,111 @@
     </aside>
 
         <!-- <a href="/concept1_1">Unit 1-Concept 1</a> -->
-
         <div id="board">
-            <div class="container">
-                Instantaneous Rates of Change
-                <span class="icon"></span>
+            <div id="div1" class="container" onclick="showEquation('div1')">
+              Instantaneous Rates of Change
             </div>
-            <div class="container">
-                Estimating Derivatives with Graphs
-                <span class="icon"></span>
+            <div id="div2" class="container" onclick="showEquation('div2')">
+              Estimating Derivatives with Graphs
             </div>
-            <div class="container">
-                Derivatives of Basic Functions
-                <span class="icon"></span>
+            <div id="div3" class="container" onclick="showEquation('div3')">
+              Derivatives of Basic Functions
             </div>
-            <div class="container">
-                Product, Quotient, and Chain Rules
-                <span class="icon"></span>
+            <div id="div4" class="container" onclick="showEquation('div4')">
+              Product, Quotient, and Chain Rules
             </div>
-            <div class="container">
-                Implicit Differentiation
-                <span class="icon"></span>
+            <div id="div5" class="container" onclick="showEquation('div5')">
+              Implicit Differentiation
             </div>
-            <div class="container">
-                Derivatives of Inverse Functions
-                <span class="icon"></span>
+            <div id="div6" class="container" onclick="showEquation('div6')">
+              Derivatives of Inverse Functions
             </div>
-            <div class="container">
-                Mean Value Theorem
-                <span class="icon"></span>
+            <div id="div7" class="container" onclick="showEquation('div7')">
+              Mean Value Theorem
             </div>
-            <div class="container">
-                L'Hopital's Rule
-                <span class="icon"></span>
+            <div id="div8" class="container" onclick="showEquation('div8')">
+              L'Hopital's Rule
             </div>
-            <div class="container">
-                Derivatives of Parametrically Defined Functions
-                <span class="icon"></span>
+            <div id="div9" class="container" onclick="showEquation('div9')">
+              Derivatives of Parametrically Defined Functions
             </div>
-            <div class="container">
-                Final Challenge
-                <span class="icon"></span>
+            <div id="div10" class="container" onclick="showEquation('div10')">
+              Final Challenge
             </div>
+          </div>
 
-        </div>
+
+
+        <p id="paragraph1" style="font-size:50px; position: relative; top: -600px; height: 700px; background-color: rgba(255, 255, 255, 0.5); z-index: -1;">        
+            Definition of a Derivative: $$\lim_{\Delta x\to 0}\frac{f(x+\Delta x) - f(x)}{\Delta x}$$
+
+            $$f'(a) = \lim_{h\to 0}\frac{f(a+h) - f(a)}{h}$$
+
+        </p>
+        <script>
+            MathJax.typesetPromise([document.getElementById('paragraph1')]);
+        </script>
+
+        <p id="paragraph2" style="font-size:50px; position: relative; top: -600px; height: 700px; background-color: rgba(255, 255, 255, 0.5); z-index: -1;">        
+            $$f'(a) = \lim_{x\to a}\frac{f(x) - f(a)}{x-a}$$
+        </p>
+        <script>
+            MathJax.typesetPromise([document.getElementById('paragraph2')]);
+        </script>
+
+        <p id="paragraph3" style="font-size:50px; position: relative; top: -600px; height: 700px; background-color: rgba(255, 255, 255, 0.5); z-index: -1;">        
+            Power Rule: $$\frac{d}{dx}(x^n) = nx^{n-1}$$
+        </p>
+        <script>
+            MathJax.typesetPromise([document.getElementById('paragraph3')]);
+        </script>
+
+        <p id="paragraph4" style="font-size:50px; position: relative; top: -600px; height: 900px; background-color: rgba(255, 255, 255, 0.5); z-index: -1;">        
+            Product Rule: $$ \frac{d}{dx}(u\cdot v) = u\frac{dv}{dx} + v\frac{du}{dx} $$ 
+            Quotient Rule: $$ \frac{d}{dx}\left(\frac{u}{v}\right) = \frac{v\frac{du}{dx}-u\frac{dv}{dx}}{v^2} $$ 
+            Chain Rule: $$ \frac{d}{dx}f(g(x)) = f'(g(x))g'(x) $$ 
+        </p>
+        <script>
+            MathJax.typesetPromise([document.getElementById('paragraph4')]);
+        </script>
+
+        <p id="paragraph5" class="paragraph">
+            5
+        </p>
+        <p id="paragraph6" class="paragraph">
+            6
+        </p>
+        <p id="paragraph7" class="paragraph">
+            7
+        </p>
+        <p id="paragraph8" class="paragraph">
+            8
+        </p>
+        <p id="paragraph9" class="paragraph">
+            9
+        </p>
+        <p id="paragraph10" class="paragraph">
+            10
+        </p>
+
         <div id="icon" class="icon"></div>
 
+        <script>
+            let currentDiv = null;
+            function showEquation(divId) {
+              const div = document.getElementById(divId);
+              const paragraph = document.getElementById(`paragraph${divId.slice(3)}`);
+              if (currentDiv !== null && currentDiv !== div) {
+                currentDiv.classList.remove('box-highlight');
+                const previousParagraph = document.getElementById(`paragraph${currentDiv.id.slice(3)}`);
+                previousParagraph.style.display = 'none';
+              }
+              div.classList.toggle('box-highlight');
+              paragraph.style.display = paragraph.style.display === 'none' ? 'block' : 'none';
+              currentDiv = div;
+            }
+          </script>
+
+          
 </body>
 </html>

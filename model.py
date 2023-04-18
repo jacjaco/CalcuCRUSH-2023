@@ -122,8 +122,8 @@ class ProblemProgress(db.Model):
     
     id = db.Column(db.Float, primary_key=True)
     problems_done = db.Column(db.String(100))
-    completion = db.Column(db.Boolean)
-    points_gained = db.Column(db.Integer)
+    completion = db.Column(db.Boolean, default=False)
+    points_gained = db.Column(db.Integer, default=0)
     # foreign keys out
     student_id = db.Column(db.Integer, db.ForeignKey('students.id'))
     problem_id = db.Column(db.Float, db.ForeignKey('problems.id'))

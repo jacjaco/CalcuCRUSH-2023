@@ -3,6 +3,7 @@ body {
     padding: 30px;
     text-align: center;
     font-family: 'Lato', sans-serif;
+    margin: 0;
 }
 
 h1 {
@@ -111,7 +112,6 @@ button {
 
 #sign-in {
   font-size: 25px;
-  /* font-weight: bold; */
   color: white;
   padding: 10px;
   text-decoration: none;
@@ -119,7 +119,6 @@ button {
 
 #log-in {
   font-size: 25px;
-  /* font-weight: bold; */
   color: white;
   padding: 10px;
   text-decoration: none;
@@ -169,6 +168,7 @@ button {
     font-family: 'Lato', sans-serif;
     font-size: 30px;
     color: #fff;
+    width: 100%
   }
   
   #dashboard-navbar {
@@ -179,7 +179,7 @@ button {
   }
   
   #dashboard-navbar li {
-    margin-right: 20px;
+    margin-right: 80px;
   }
   
   #dashboard-navbar li:last-child {
@@ -202,6 +202,7 @@ button {
     background-color: #FFE45E;
     padding: 20px;
     width: 200px;
+    margin-top: 50px;
 }
 
 .sidebar ul {
