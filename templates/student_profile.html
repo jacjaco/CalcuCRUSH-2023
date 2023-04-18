@@ -25,11 +25,42 @@
             <p>First Name: {{ student.fname }}</p>
             <p>Last Name: {{ student.lname }}</p>
             <p>Email: {{ student.email }}</p>
-            <p>Planet Points: </p>
-            <p>Math Level: </p>
-            <p>Career Goal: </p>
-            
-          </body>
+            <p>Planet Points: {{ student.planet_points }}</p>
+            <p>Math Level: {{ student.mathematical_level }}</p>
+            <p>Career Goal: <span id="career-goal">{{ student.career_path }}</span></p>
+            <form id="career-goal-form">
+                <input type="text" name="career_goal">
+                <button type="submit">Update</button>
+            </form>
+
+
+            <script>
+                const form = document.getElementById('career-goal-form');
+                const span = document.getElementById('career-goal');
+                
+                form.addEventListener('submit', (event) => {
+                    event.preventDefault(); 
+                    
+                    const input = form.querySelector('input[name="career_goal"]');
+                    const value = input.value;
+                    
+                    fetch('/update_career_goal', {
+                        method: 'POST',
+                        body: JSON.stringify({ 'career_goal': value }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            span.textContent = value;
+                        }
+                    });
+                });
+            </script>
+
+        </body>
 
 
     </body>

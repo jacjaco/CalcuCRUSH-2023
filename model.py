@@ -14,7 +14,7 @@ class Student(db.Model):
     password = db.Column(db.String(100))
     fname = db.Column(db.String(100))
     lname = db.Column(db.String(100))
-    planet_points = db.Column(db.Integer)
+    planet_points = db.Column(db.Integer, default=0)
 
     unit_progress = db.relationship('UnitProgress', back_populates='student') 
     concept_progress = db.relationship('ConceptProgress', back_populates='student')

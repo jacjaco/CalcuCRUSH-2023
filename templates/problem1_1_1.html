@@ -88,7 +88,7 @@
         <!-- Create point and problem completion counters on the side: -->
         <div class="point-bubble">
           <label for="points">Planet Points</label>
-          <span id="points" class="counter">0</span>
+          <span id="points" class="counter">{{ student.planet_points }}</span>
         </div>
 
         <div class="problem-bubble">
@@ -121,30 +121,38 @@
 
         <div id="messageContainer"></div>
         
+        <div id="result"></div>
         <!-- Submit and Check Answer Javascript -->
         <script>
           function checkAnswer() {
             const userInput = document.getElementById("equationInput").value;
             const df_dx = "{{ df_dx }}"; 
             const resultElement = document.getElementById("result");
-            
+            const pointsElement = document.getElementById("points");
+
+
             if (userInput === df_dx) {
+
               resultElement.innerText = "Congratulations! Your answer is correct.";
-              startConfetti();
-              confetti.maxCount = 20;
+              const planetPoints = document.getElementById('points');
+              const currentPoints = parseInt(planetPoints.innerText);
+              planetPoints.innerText = currentPoints + 1;
+              
+              fetch('/update-points', {
+                method: 'POST',
+                body: new URLSearchParams({
+                  email: '{{ student.email }}',
+                  points: planetPoints.innerText
+                })
+              });
+
+
             } else {
               resultElement.innerText = "Not yet. Please try again!";
             }
           }
         </script>
 
-                <!-- Update point and problem counters -->
-
-        <!-- Update point and problem counters -->
-        <script>
-    
-        </script>
       </div>  
-    <!-- </div>    -->
     </body>
   </html>

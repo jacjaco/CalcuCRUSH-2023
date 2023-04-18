@@ -1,6 +1,6 @@
 from flask import (Flask, render_template, request, flash, session, jsonify,
                    redirect)
-from model import connect_to_db, db, Student
+from model import connect_to_db, db, Student, Problem, ProblemProgress
 import crud
 import sympy as sp
 from random import randint
@@ -17,12 +17,7 @@ app.jinja_env.undefined = StrictUndefined
 def create_database():
     db.create_all()
 
-# route all the apps through here
-# @app.route('/')
-# def homepage():
-#     if 'email' in session:
-#         return redirect("/dashboard")
-#     return render_template('homepage.html')
+
 
 @app.route('/base')
 def base():
@@ -55,6 +50,30 @@ def unit1():
 @app.route('/concept1_1')
 def concept1_1():
     return render_template('concept1_1.html')
+
+@app.route('/update_career_goal', methods=['POST'])
+def update_career_goal():
+    data = request.get_json()
+    new_career_goal = data['career_goal']
+    
+    student = Student.query.first()
+    student.career_path = new_career_goal
+    db.session.commit()
+
+    return jsonify({ 'success': True })
+
+@app.route('/update-points', methods=['POST'])
+def update_points():
+    email = request.form['email']
+    points = int(request.form['points'])
+    student = Student.query.filter_by(email=email).first()
+    if student:
+        student.planet_points = points
+        db.session.commit()
+        return jsonify(success=True)
+    else:
+        return jsonify(success=False)
+
 
 @app.route('/test')
 def test():
@@ -103,7 +122,9 @@ def u1_c1_write():
 @app.route('/problem1_1_1')
 def problem1_1_1():
     f, df_dx = u1_c1_write()
-    return render_template('problem1_1_1.html', f=f, df_dx=df_dx)#, func=func, deriv=deriv)
+    email = session.get('email')
+    student = Student.query.filter_by(email=email).first()
+    return render_template('problem1_1_1.html', f=f, df_dx=df_dx, student=student) #, planet_points=students.planet_points)
 
 @app.route('/problem111_check', methods=['POST'])
 def problem111_check():
@@ -113,63 +134,29 @@ def problem111_check():
 
     result = str(user_input) == str(correct_answer)
     if result:
-        return jsonify({"correct": True }) #, "user_input": user_input, "correct_answer": correct_answer, "result": "correct"})
+        email = session.get('email')
+        # student = Student.query.filter_by(email=email).first()
+        # student.planet_points += 1
+        # db.session.commit()
+
+        return jsonify({"correct": True }), render_template('problem1_1_1.html', planet_points=student.planet_points) #, "user_input": user_input, "correct_answer": correct_answer, "result": "correct"})
+
     else:
         return jsonify({"correct": False }) #, "user_input": user_input, "correct_answer": correct_answer, "result": "incorrect"})
+
+
 
 @app.route('/problem1_1_2')
 def problem1_1_2():
     return render_template('problem1_1_2.html')#, func=func, deriv=deriv)
-# @app.route('/planet_points', methods=['POST'])
-# def update_points():
-#     updated_points = request.json
 
-#     # get the student_id associated with the current user's email from the database
-#     email = session['email']
-#     cursor = conn.cursor()
-#     cursor.execute('SELECT student_id FROM students WHERE email = %s', (email,))
-#     result = cursor.fetchone()
-#     student_id = result[0]
-
-#     # update the relevant info in the database for the student_id
-#     cursor.execute('UPDATE students SET name = %s, age = %s, major = %s WHERE student_id = %s', 
-#                    (updated_points['name'], updated_points['age'], updated_points['major'], student_id))
-#     conn.commit()
-
-#     return 'Info updated successfully'
 
 @app.route("/db") # when model is changed, reboot the database by going to this route in the browser
 def db_1():
     students.seed()
     return "Done with db route"
 
-# @app.route("/student", methods=["POST"])
-# def register_user():
 
-#     # assigned name of the elemment in parentheses
-#     email = request.form.get("email") # get the email from html and save it to a variable
-#     password = request.form.get("password") # get password and save it to variable
-#     fname = request.form.get("fname")
-#     lname = request.form.get("lname")
-#     print('************************************************************==============')
-#     print(email,password, lname, fname)
-#     user = crud.get_student_by_email(email)
-#     session['email'] = email
-#     if user: # if the user exists
-#         flash("Cannot create an account with that email. Try again.")
-#     else: # go to the crud function to CREATE
-#         user = crud.create_student(fname, lname, email, password) # set return of function to user
-#         db.session.add(user) # add the created user to the database
-#         db.session.commit() # commit it to the database. 
-#         flash("Account created! Please log in.")
-
-#     return redirect("/dashboard") #once done, return to homepage. 
-
-# @app.route('/dashboard')
-# def dashboard():
-#     student = Student.query.filter_by(email=session['email']).first()
-
-#     return render_template('dashbaord.html', fname=student.fname, lname=student.lname, email=student.email, password=student.password)
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
