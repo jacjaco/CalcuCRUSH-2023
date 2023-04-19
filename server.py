@@ -27,6 +27,10 @@ def base():
 def user_terms():
     return render_template('terms.html')
 
+@app.route('/synopsis', methods=['GET', 'POST'])
+def synopsis():
+    return render_template('synopsis.html')
+
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     return render_template('dashboard.html')

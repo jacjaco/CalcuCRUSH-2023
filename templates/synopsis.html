@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Learning Terms</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        body {
+          background-image: url("/static/images/agreement.jpg");
+          background-size: cover;
+        }
+        .slide {
+            display: none;
+            font-size: 45px;
+            margin-top: 5%;
+            color: yellow;
+        }
+
+        .active {
+            display: block;
+            font-size: 45px;
+            color: yellow;
+        }
+
+        .skip {
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 20px;
+            color: yellow;
+        }
+
+        .arrow {
+            cursor: pointer;
+            position: absolute;
+            top: 15%;
+            transform: translateY(-50%);
+            font-size: 50px;
+            font-weight: bold;
+            color: yellow;
+            z-index: 1;
+        }
+
+        #prev {
+            left: 350px;
+        }
+
+        #next {
+            right: 350px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <img src="/static/images/agreement.jpg" alt="Image Description" style="display:block; margin:auto;"> -->
+
+
+    <div id="carousel">
+        <div id="slide1" class="slide">For the past several decades, scientists have been monitoring <br> the mysterious depletion of the earth's water supply. <br>&nbsp;
+            Once thought to be a renewable resource, water is now increasingly scarce, <br> and no plausible factor has been identified as the cause.</div>
+        <div id="slide2" class="slide">Is it all a result of climate change? <br> Or perhaps something even more sinister. <br> Something...extraterrestrial?</div>
+        <div id="slide3" class="slide">The world is counting on you. Solve the problems in each <br> challenge and gather clues as to the mysterious <br> disappearance of earth's most precious resource.  </div>
+        <div id="slide3" class="slide">Your first clue, <br> start at the worlds highest point <br> and see what new information can be uncovered there.</div>
+        <a href="/dashboard" style="font-size: 20px; color: yellow">Skip Intro</a>
+        <div id="prev" class="arrow">&#10094;</div>
+        <div id="next" class="arrow">&#10095;</div>
+    </div>
+
+      <script>
+        let slideIndex = 0;
+        const slides = document.getElementsByClassName("slide");
+        const skipButton = document.getElementById("skip");
+        const prevButton = document.getElementById("prev");
+        const nextButton = document.getElementById("next");
+
+        function showSlide() {
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove("active");
+        }
+        
+        slides[slideIndex].classList.add("active");
+        
+        if (slideIndex === slides.length - 1) {
+            skipButton.onclick = function() {
+            window.location.href = "/dashboard.html";
+            }
+        }
+        }
+
+        showSlide();
+
+        nextButton.onclick = function() {
+        slideIndex++;
+        if (slideIndex >= slides.length) {
+            slideIndex = 0;
+        }
+        showSlide();
+        }
+
+        prevButton.onclick = function() {
+        slideIndex--;
+        if (slideIndex < 0) {
+            slideIndex = slides.length - 1;
+        }
+        showSlide();
+        }
+      </script>
+</body>
+</html>

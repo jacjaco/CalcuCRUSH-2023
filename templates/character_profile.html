@@ -36,10 +36,10 @@
                       </tr>
 
                   <tr>
-                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;"><strong>Career Goal:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;"><strong>Superpower:</strong></td>
                     <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;">
                       <div style="position: relative;">
-                        <span id="career-goal">{{ student.career_path }}</span>
+                        <span id="career-goal">Microscopic Vision</span>
                         <span class="dropdown-arrow" style="position: absolute; top: 0; margin-left: 30px; bottom: 0; width: 60px; background-color: #00a6ED; cursor: pointer;">
                           <i class="fa fa-angle-down" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Edit</i>
                         </span>
@@ -51,10 +51,10 @@
                     </td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;"><strong>Career Goal:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;"><strong>List of Tools:</strong></td>
                     <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;">
                       <div style="position: relative;">
-                        <span id="career-goal">{{ student.career_path }}</span>
+                        <span id="career-goal">Telescope, Water Filter, Compass</span>
                         <span class="dropdown-arrow" style="position: absolute; top: 0; margin-left: 30px; bottom: 0; width: 60px; background-color: #00a6ED; cursor: pointer;">
                           <i class="fa fa-angle-down" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Edit</i>
                         </span>
@@ -87,13 +87,7 @@
                     const input = form.querySelector('input[name="career_goal"]');
                     const value = input.value;
                     
-                    // fetch('/update_career_goal', {
-                    //     method: 'POST',
-                    //     body: JSON.stringify({ 'career_goal': value }),
-                    //     headers: {
-                    //         'Content-Type': 'application/json'
-                    //     }
-                    // })
+
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {

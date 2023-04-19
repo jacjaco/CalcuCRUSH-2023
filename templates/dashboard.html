@@ -18,7 +18,41 @@
             background: url("hidden-mark.png");
             width: 24px;
             height: 36px;
-}
+            }
+
+            .note-container {
+              background-color: #fff;
+              padding: 20px;
+              border: 1px solid #ddd;
+              width: 300px;
+              box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+              margin-top: 50px;
+              margin-right: 20px;
+              position: relative;
+              z-index: 10;
+            }
+
+            .note-header {
+              font-size: 20px;
+              font-weight: bold;
+              margin-bottom: 10px;
+            }
+
+            .note-list {
+              list-style-type: none;
+              margin: 0;
+              padding: 0;
+            }
+
+            .note-list li {
+              margin-bottom: 10px;
+              padding-left: 10px;
+              background-image: url('note-paper.png');
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: left center;
+              line-height: 1.5;
+            }
         </style>
     
     </head>
@@ -28,7 +62,7 @@
             <nav class="navbar">
                     <ul id="dashboard-navbar">
                         <li><a href="/dashboard">Dashboard</a></li>
-                        <li><a href="/unit1">Unit 1</a></li>
+                        <!-- <li><a href="/unit1">Unit 1</a></li> -->
                         <li><a href="/character_profile">Character Profile</a></li>
                         <li><a href="/student_profile">Student Profile</a></li>
                         <!-- <li><a href="/concept1_1">Unit 1-Concept 1</a></li> -->
@@ -39,6 +73,15 @@
         <h1>Dashboard</h1>
         
         <div id="map" style="height: 900px; width:100%;"></div>
+        <div class="note-container">
+          <div class="note-header">Map Notes</div>
+          <ul class="note-list">
+            <li>"start at the worlds highest point"</li>
+            <li>-</li>
+            <li>-</li>
+          </ul>
+        </div>
+
 
         <script>
           var map = new google.maps.Map(document.getElementById('map'), {
@@ -109,7 +152,7 @@
           };
 
           var marker = new google.maps.Marker({
-            position: {lat: 37.7749, lng: -122.4194},
+            position: {lat: 27.9881, lng: 86.9253},
             map: map,
             icon: icon,
             visible: false 
@@ -138,6 +181,7 @@
           <input type="text" id="lng" name="lng" placeholder="Enter longitude">
         </div>
         <button onclick="zoomToLocation()">Zoom to location</button>
+
 
         <script>
           function zoomToLocation() {
