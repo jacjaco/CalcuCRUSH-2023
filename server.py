@@ -147,20 +147,36 @@ def problem111_check():
 def u1_c1_p2_write():
 
     x = sp.Symbol('x')
-    terms = []
-    term_num = randint(1, 6) #select a random number of terms from 1-6
+    terms1 = []
+    terms2= []
+    term_num = randint(1, 3) #select a random number of terms from 1-6
     for i in range(term_num): # generate randome coefficient/degree pairs as tuples
         coefficient = randint(-9, 9)
         degree = randint(0, 9)
         pair = (coefficient, degree)
-        terms.append(pair)
+        terms1.append(pair)
+    
+    for i in range(term_num): # generate randome coefficient/degree pairs as tuples
+        coefficient = randint(-9, 9)
+        degree = randint(0, 9)
+        pair = (coefficient, degree)
+        terms2.append(pair)
 
     # initialize the function
-    function_terms = [] # put the tuples into an expression
-    for n in range(len(terms)):
-        function_terms.append((terms[n][0])*x**(terms[n][1]))
+    function_terms1 = [] # put the tuples into an expression
+    for n in range(len(terms1)):
+        function_terms1.append((terms1[n][0])*x**(terms1[n][1]))
+
+    # initialize the function
+    function_terms2 = [] # put the tuples into an expression
+    for n in range(len(terms2)):
+        function_terms2.append((terms2[n][0])*x**(terms2[n][1]))
     # put all the terms together in a single expression
-    f = sum(function_terms)
+    f1 = sum(function_terms1)
+    f2 = sum(function_terms2)
+
+    f = f1*f2
+
     df_dx = sp.diff(f,x)
 
     f = str(f)
@@ -195,6 +211,77 @@ def problem112_check():
         return jsonify({"correct": True }), render_template('problem1_1_2.html', planet_points=student.planet_points) #, "user_input": user_input, "correct_answer": correct_answer, "result": "correct"})
     else:
         return jsonify({"correct": False }) #, "user_input": user_input, "correct_answer": correct_answer, "result": "incorrect"})
+
+@app.route('/quotient_deriv')
+def u1_c1_p3_write():
+
+    x = sp.Symbol('x')
+    terms1 = []
+    terms2= []
+    term_num = randint(1, 3) #select a random number of terms from 1-6
+    for i in range(term_num): # generate randome coefficient/degree pairs as tuples
+        coefficient = randint(-9, 9)
+        degree = randint(0, 9)
+        pair = (coefficient, degree)
+        terms1.append(pair)
+    
+    for i in range(term_num): # generate randome coefficient/degree pairs as tuples
+        coefficient = randint(-9, 9)
+        degree = randint(0, 9)
+        pair = (coefficient, degree)
+        terms2.append(pair)
+
+    # initialize the function
+    function_terms1 = [] # put the tuples into an expression
+    for n in range(len(terms1)):
+        function_terms1.append((terms1[n][0])*x**(terms1[n][1]))
+
+    # initialize the function
+    function_terms2 = [] # put the tuples into an expression
+    for n in range(len(terms2)):
+        function_terms2.append((terms2[n][0])*x**(terms2[n][1]))
+    # put all the terms together in a single expression
+    f1 = sum(function_terms1)
+    f2 = sum(function_terms2)
+
+    f = f1/f2
+
+    df_dx = sp.diff(f,x)
+
+    f = str(f)
+    df_dx = str(df_dx)
+
+    f = f.replace('**', '^')
+    df_dx = df_dx.replace('**', '^')
+
+    f = f.replace(" ", "")
+    df_dx = df_dx.replace(" ", "")
+
+    return f, df_dx #, {'data': [str(f), str(df_dx)]}#f, df_dx# fetch request, Ajax lecture. 
+
+@app.route('/problem1_1_3')
+def problem1_1_3():
+    f, df_dx = u1_c1_p3_write()
+    email = session.get('email')
+    student = Student.query.filter_by(email=email).first()
+    new_progress = ProblemProgress(id=3, problems_done="", completion=False, points_gained=0)
+    progress = ProblemProgress.query.filter_by(id=3).first()
+    return render_template('problem1_1_3.html', f=f, df_dx=df_dx, student=student, new_progress=new_progress, progress=progress) #, planet_points=students.planet_points)
+
+@app.route('/problem113_check', methods=['POST'])
+def problem113_check():
+    user_input = request.json["answer"]
+
+    problem, correct_answer = u1_c1_p3_write()
+
+    result = str(user_input) == str(correct_answer)
+    if result:
+        email = session.get('email')
+        return jsonify({"correct": True }), render_template('problem1_1_3.html', planet_points=student.planet_points) #, "user_input": user_input, "correct_answer": correct_answer, "result": "correct"})
+    else:
+        return jsonify({"correct": False }) #, "user_input": user_input, "correct_answer": correct_answer, "result": "incorrect"})
+
+
 
 
 @app.route("/db") # when model is changed, reboot the database by going to this route in the browser
