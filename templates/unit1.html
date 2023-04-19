@@ -5,14 +5,40 @@
 	<title>Unit 1</title>
     <link rel="stylesheet" href="/static/css/style.css">
 	<script>
-        const container = document.querySelector('.container');
-        const icon = document.querySelector('.icon');
+        // const container = document.querySelector('.container');
+        // const icon = document.querySelector('.icon');
+        // let lastClickedDiv;
 
-        container.addEventListener('click', (event) => {
-            icon.style.display = 'block';
-            icon.style.top = event.clientY - container.offsetTop + 'px';
-            icon.style.left = event.clientX - container.offsetLeft + 'px';
-        });
+        // function showEquation(id) {
+        //         // hide all paragraphs
+        //         paragraphs.forEach(p => p.style.display = 'none');
+
+        //         // show corresponding paragraph
+        //         const paragraphId = 'paragraph' + id.slice(-1);
+        //         const paragraph = document.getElementById(paragraphId);
+        //         paragraph.style.display = 'block';
+
+        //         // remove highlight from last clicked div and add to current div
+        //         if (lastClicked) {
+        //             lastClicked.classList.remove('box-highlight');
+        //         }
+        //         const currentDiv = document.getElementById(id);
+        //         currentDiv.classList.add('box-highlight');
+        //         lastClicked = currentDiv;
+        //     }
+
+        //     // add click event listener to each div
+        //     divs.forEach(div => {
+        //         div.addEventListener('click', function() {
+        //             showEquation(div.id);
+        //         });
+        //     });
+
+        // container.addEventListener('click', (event) => {
+        //     icon.style.display = 'block';
+        //     icon.style.top = event.clientY - container.offsetTop + 'px';
+        //     icon.style.left = event.clientX - container.offsetLeft + 'px';
+        // });
     </script> 
     <!--KaTex Formatting-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
@@ -74,43 +100,43 @@
         </ul>
     </aside>
 
-        <!-- <a href="/concept1_1">Unit 1-Concept 1</a> -->
-        <div id="board">
-            <div id="div1" class="container" onclick="showEquation('div1')">
+        <!-- <a href="/concept1_1">Unit 1-Concept 1</a> onclick="showEquation('div1')"-->
+        <div id="board" style="border-radius: 10px;">
+            <div id="div1" style="border-radius: 30px; box-shadow: 10px 10px 5px purple;" class="container">
               Instantaneous Rates of Change
             </div>
-            <div id="div2" class="container" onclick="showEquation('div2')">
+            <div id="div2" style="border-radius: 30px; box-shadow: 10px 10px 5px purple;" class="container">
               Estimating Derivatives with Graphs
             </div>
-            <div id="div3" class="container" onclick="showEquation('div3')">
+            <div id="div3" style="border-radius: 30px; box-shadow: 10px 10px 5px purple;" class="container">
               Derivatives of Basic Functions
             </div>
-            <div id="div4" class="container" onclick="showEquation('div4')">
+            <div id="div4" style="border-radius: 30px; box-shadow: 10px 10px 5px purple;" class="container">
               Product, Quotient, and Chain Rules
             </div>
-            <div id="div5" class="container" onclick="showEquation('div5')">
+            <div id="div5" style="border-radius: 30px; box-shadow: 10px 10px 5px purple;" class="container">
               Implicit Differentiation
             </div>
-            <div id="div6" class="container" onclick="showEquation('div6')">
+            <div id="div6" style="border-radius: 30px; box-shadow: 10px 10px 5px purple;" class="container">
               Derivatives of Inverse Functions
             </div>
-            <div id="div7" class="container" onclick="showEquation('div7')">
+            <div id="div7" style="border-radius: 30px; box-shadow: 10px 10px 5px purple;" class="container">
               Mean Value Theorem
             </div>
-            <div id="div8" class="container" onclick="showEquation('div8')">
+            <div id="div8" style="border-radius: 30px; box-shadow: 10px 10px 5px purple;" class="container">
               L'Hopital's Rule
             </div>
-            <div id="div9" class="container" onclick="showEquation('div9')">
+            <div id="div9" style="border-radius: 30px; box-shadow: 10px 10px 5px purple;" class="container">
               Derivatives of Parametrically Defined Functions
             </div>
-            <div id="div10" class="container" onclick="showEquation('div10')">
+            <div id="div10" style="border-radius: 30px; box-shadow: 10px 10px 5px purple;" class="container">
               Final Challenge
             </div>
           </div>
 
 
 
-        <p id="paragraph1" style="font-size:50px; position: relative; top: -600px; height: 700px; background-color: rgba(255, 255, 255, 0.5); z-index: -1;">        
+        <p id="paragraph1" class="paragraph" style="font-size:50px; position: relative; top: -600px; height: 700px; background-color: rgba(255, 255, 255, 0.5); z-index: -1;">        
             Definition of a Derivative: $$\lim_{\Delta x\to 0}\frac{f(x+\Delta x) - f(x)}{\Delta x}$$
 
             $$f'(a) = \lim_{h\to 0}\frac{f(a+h) - f(a)}{h}$$
@@ -120,21 +146,21 @@
             MathJax.typesetPromise([document.getElementById('paragraph1')]);
         </script>
 
-        <p id="paragraph2" style="font-size:50px; position: relative; top: -600px; height: 700px; background-color: rgba(255, 255, 255, 0.5); z-index: -1;">        
+        <p id="paragraph2" class="paragraph" style="font-size:50px; position: relative; top: -600px; height: 700px; background-color: rgba(255, 255, 255, 0.5); z-index: -1;">        
             $$f'(a) = \lim_{x\to a}\frac{f(x) - f(a)}{x-a}$$
         </p>
         <script>
             MathJax.typesetPromise([document.getElementById('paragraph2')]);
         </script>
 
-        <p id="paragraph3" style="font-size:50px; position: relative; top: -600px; height: 700px; background-color: rgba(255, 255, 255, 0.5); z-index: -1;">        
+        <p id="paragraph3" class="paragraph" style="font-size:50px; position: relative; top: -600px; height: 700px; background-color: rgba(255, 255, 255, 0.5); z-index: -1;">        
             Power Rule: $$\frac{d}{dx}(x^n) = nx^{n-1}$$
         </p>
         <script>
             MathJax.typesetPromise([document.getElementById('paragraph3')]);
         </script>
 
-        <p id="paragraph4" style="font-size:50px; position: relative; top: -600px; height: 900px; background-color: rgba(255, 255, 255, 0.5); z-index: -1;">        
+        <p id="paragraph4" class="paragraph" style="font-size:50px; position: relative; top: -600px; height: 900px; background-color: rgba(255, 255, 255, 0.5); z-index: -1;">        
             Product Rule: $$ \frac{d}{dx}(u\cdot v) = u\frac{dv}{dx} + v\frac{du}{dx} $$ 
             Quotient Rule: $$ \frac{d}{dx}\left(\frac{u}{v}\right) = \frac{v\frac{du}{dx}-u\frac{dv}{dx}}{v^2} $$ 
             Chain Rule: $$ \frac{d}{dx}f(g(x)) = f'(g(x))g'(x) $$ 
@@ -165,20 +191,35 @@
         <div id="icon" class="icon"></div>
 
         <script>
-            let currentDiv = null;
-            function showEquation(divId) {
-              const div = document.getElementById(divId);
-              const paragraph = document.getElementById(`paragraph${divId.slice(3)}`);
-              if (currentDiv !== null && currentDiv !== div) {
-                currentDiv.classList.remove('box-highlight');
-                const previousParagraph = document.getElementById(`paragraph${currentDiv.id.slice(3)}`);
-                previousParagraph.style.display = 'none';
-              }
-              div.classList.toggle('box-highlight');
-              paragraph.style.display = paragraph.style.display === 'none' ? 'block' : 'none';
-              currentDiv = div;
+            const divs = document.querySelectorAll('.container');
+            const paragraphs = document.querySelectorAll('.paragraph');
+            let lastClickedDiv;
+    
+            function showParagraph(id) {
+                // hide all paragraphs
+                paragraphs.forEach(p => p.style.display = 'none');
+    
+                // show corresponding paragraph
+                const paragraphId = 'paragraph' + id.slice(-1);
+                const paragraph = document.getElementById(paragraphId);
+                paragraph.style.display = 'block';
+    
+                // remove highlight from last clicked div and add to current div
+                if (lastClickedDiv) {
+                    lastClickedDiv.classList.remove('box-highlight');
+                }
+                const currentDiv = document.getElementById(id);
+                currentDiv.classList.add('box-highlight');
+                lastClickedDiv = currentDiv;
             }
-          </script>
+    
+            // add click event listener to each div
+            divs.forEach(div => {
+                div.addEventListener('click', function() {
+                    showParagraph(div.id);
+                });
+            });
+        </script>
 
           
 </body>

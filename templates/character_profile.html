@@ -16,11 +16,94 @@
                         <!-- <li><a href="/concept1_1">Unit 1-Concept 1</a></li> -->
                     </ul>
             </nav>
-        </header>
-        <a href="/unit1">Unit 1</a>
+            <h1 style="font-size: 50px;">Character Profile</h1>
+            <div style="text-align: center;">
+                <table style="width:50%; margin: 0 auto; margin-top: 100px; border-collapse: collapse; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); background-color: rgb(205, 239, 244); border-radius: 100px;">
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;"><strong>Character Name:</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;">
+                          <div style="position: relative;">
+                            <span id="charac-name">Enter a new name!</span>
+                            <span class="dropdown-arrow" style="position: absolute; top: 0; margin-left: 30px; bottom: 0; width: 60px; background-color: #00a6ED; cursor: pointer; z-index: +10;">
+                              <i class="fa fa-angle-down" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Edit</i>
+                            </span>
+                            <form id="charac-name-form" style="display: none; position: absolute; top: 100%; right: 0; background-color: #ddd; padding: 10px; border-radius: 4px;">
+                              <input type="text" name="career_goal" style="width: 200px;">
+                              <button type="submit" style="background-color: #5D2A42; color: white; padding: 3px 6px; border: none; border-radius: 4px; cursor: pointer; width: 100px; height: 40px;">Update</button>
+                            </form>
+                          </div>
+                        </td>
+                      </tr>
 
+                  <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;"><strong>Career Goal:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;">
+                      <div style="position: relative;">
+                        <span id="career-goal">{{ student.career_path }}</span>
+                        <span class="dropdown-arrow" style="position: absolute; top: 0; margin-left: 30px; bottom: 0; width: 60px; background-color: #00a6ED; cursor: pointer;">
+                          <i class="fa fa-angle-down" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Edit</i>
+                        </span>
+                        <form id="career-goal-form" style="display: none; position: absolute; top: 100%; right: 0; background-color: #ddd; padding: 10px; border-radius: 4px;">
+                          <input type="text" name="career_goal" style="width: 200px;">
+                          <button type="submit" style="background-color: #5D2A42; color: white; padding: 3px 6px; border: none; border-radius: 4px; cursor: pointer; width: 100px; height: 40px;">Update</button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;"><strong>Career Goal:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;">
+                      <div style="position: relative;">
+                        <span id="career-goal">{{ student.career_path }}</span>
+                        <span class="dropdown-arrow" style="position: absolute; top: 0; margin-left: 30px; bottom: 0; width: 60px; background-color: #00a6ED; cursor: pointer;">
+                          <i class="fa fa-angle-down" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Edit</i>
+                        </span>
+                        <form id="career-goal-form" style="display: none; position: absolute; top: 100%; right: 0; background-color: #ddd; padding: 10px; border-radius: 4px;">
+                          <input type="text" name="career_goal" style="width: 200px;">
+                          <button type="submit" style="background-color: #5D2A42; color: white; padding: 3px 6px; border: none; border-radius: 4px; cursor: pointer; width: 100px; height: 40px;">Update</button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                  
+                  <script>
+                    const dropdownArrow = document.querySelector('.dropdown-arrow');
+                    const form1 = document.querySelector('#career-goal-form');
+                  
+                    dropdownArrow.addEventListener('click', () => {
+                      form1.style.display = form1.style.display === 'none' ? 'block' : 'none';
+                    });
+                  </script>
+                </table>
+              </div>
 
-        <h1>Character Profile</h1>
+            <script>
+                const form = document.getElementById('charac-name-form');
+                const span = document.getElementById('charac-name');
+                
+                form.addEventListener('submit', (event) => {
+                    event.preventDefault(); 
+                    
+                    const input = form.querySelector('input[name="career_goal"]');
+                    const value = input.value;
+                    
+                    // fetch('/update_career_goal', {
+                    //     method: 'POST',
+                    //     body: JSON.stringify({ 'career_goal': value }),
+                    //     headers: {
+                    //         'Content-Type': 'application/json'
+                    //     }
+                    // })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            span.textContent = value;
+                        }
+                    });
+                });
+            </script>
+
+        </body>
 
 
     </body>

@@ -35,7 +35,9 @@ def dashboard():
     
 @app.route('/character_profile')
 def character_profile():
-    return render_template('character_profile.html')
+    email = session.get('email')
+    student = Student.query.filter_by(email=email).first()
+    return render_template('character_profile.html', student=student)
 
 @app.route('/student_profile')
 def student_profile():

@@ -16,23 +16,55 @@
                         <!-- <li><a href="/concept1_1">Unit 1-Concept 1</a></li> -->
                     </ul>
             </nav>
-        </header>
-
-
-        <h1>Your Personal Profile</h1>
-        <body>
-            <h1>Welcome, {{ student.fname }}!</h1>
-            <p>First Name: {{ student.fname }}</p>
-            <p>Last Name: {{ student.lname }}</p>
-            <p>Email: {{ student.email }}</p>
-            <p>Planet Points: {{ student.planet_points }}</p>
-            <p>Math Level: {{ student.mathematical_level }}</p>
-            <p>Career Goal: <span id="career-goal">{{ student.career_path }}</span></p>
-            <form id="career-goal-form">
-                <input type="text" name="career_goal">
-                <button type="submit">Update</button>
-            </form>
-
+            <h1 style="font-size: 50px;">{{ student.fname }}'s Profile</h1>
+            <div style="text-align: center;">
+                <table style="width:50%; margin: 0 auto; margin-top: 100px; border-collapse: collapse; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); background-color: rgb(205, 239, 244); border-radius: 100px;">
+                  <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;"><strong>First Name:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;">{{ student.fname }}</td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;"><strong>Last Name:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;">{{ student.lname }}</td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;"><strong>Email:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;">{{ student.email }}</td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;"><strong>Planet Points:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;">{{ student.planet_points }}</td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;"><strong>Math Level:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;">{{ student.mathematical_level }}</td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;"><strong>Career Goal:</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px; font-size: 30px;">
+                      <div style="position: relative;">
+                        <span id="career-goal">{{ student.career_path }}</span>
+                        <span class="dropdown-arrow" style="position: absolute; top: 0; margin-left: 30px; bottom: 0; width: 60px; background-color: #00a6ED; cursor: pointer;">
+                          <i class="fa fa-angle-down" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Edit</i>
+                        </span>
+                        <form id="career-goal-form" style="display: none; position: absolute; top: 100%; right: 0; background-color: #ddd; padding: 10px; border-radius: 4px;">
+                          <input type="text" name="career_goal" style="width: 200px;">
+                          <button type="submit" style="background-color: #5D2A42; color: white; padding: 3px 6px; border: none; border-radius: 4px; cursor: pointer; width: 100px; height: 40px;">Update</button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                  
+                  <script>
+                    const dropdownArrow = document.querySelector('.dropdown-arrow');
+                    const form1 = document.querySelector('#career-goal-form');
+                  
+                    dropdownArrow.addEventListener('click', () => {
+                      form1.style.display = form1.style.display === 'none' ? 'block' : 'none';
+                    });
+                  </script>
+                </table>
+              </div>
 
             <script>
                 const form = document.getElementById('career-goal-form');
